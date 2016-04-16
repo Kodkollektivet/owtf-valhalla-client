@@ -1,10 +1,12 @@
-var CoreApiService = require('../../../client/services/core-api-service').CoreApiService
-var api = new CoreApiService()
-var fakeData = require('./fake-data')
-var nock = require("nock")
-var chai = require("chai")
-var chaiAsPromised = require("chai-as-promised")
-var assert = chai.assert
+import * as fakeData from './fake-data'
+import chai from 'chai'
+import nock from 'nock'
+import chaiAsPromised from 'chai-as-promised'
+let assert = chai.assert
+
+import {api} from '../../../client/services/core-api-service'
+const coreApi = api();
+
 chai.use(chaiAsPromised)
 
 describe('core-api-service.js', function() {
@@ -19,9 +21,10 @@ describe('core-api-service.js', function() {
     describe('#getContainers', function() {
 
         it('should return two containers', function() {
-            return api.getContainers().then(function(containers){
+            return coreApi.getContainers().then(function(containers){
                 assert.lengthOf(containers, 2,"There should be two containers");
             });
         });
+        
     });
 });

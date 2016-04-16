@@ -22,6 +22,5 @@ export function mapSingle (apiEntity){
 }
 
 export function mapMany (apiEntitys){
-    console.log("map many")
     return apiEntitys.map(container => mapSingle(container));
 }

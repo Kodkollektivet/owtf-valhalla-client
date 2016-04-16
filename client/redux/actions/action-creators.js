@@ -8,24 +8,33 @@ import {
     LOG_WARN,
     LOG_ERROR,
     LOG_CRITICAL
-} from './actions/action-types'
+} from './action-types'
 
-//Containers fetch action creators
-export function fetchContainersRequest() {
-  return {type: FETCH_CONTAINERS_REQUEST}
-}
+import {api} from '../../services/core-api-service'
+const coreApi = api();
 
-export function fetchContainersStarted() {
+
+function fetchContainersStarted() {
   return {type: FETCH_CONTAINERS_STARTED}
 }
 
-export function fetchContainersSuccess(containers) {
+function fetchContainersSuccess(containers) {
   return {type: FETCH_CONTAINERS_SUCCESS, containers: containers}
 }
 
-export function fetchContainersFailure(error) {
+function fetchContainersFailure(error) {
   return {type: FETCH_CONTAINERS_FAILURE, error: error}
 }
+
+export function fetchContainers(){
+  return dispatch => {
+    dispatch(fetchContainersStarted())
+    return coreApi.getContainers()
+          .then(containers => dispatch(fetchContainersSuccess(containers)))
+          .catch(ex => dispatch(fetchContainersFailure(ex)))
+  }
+}
+
 
 //Log action creators
 export function logInfo(message, inner){
