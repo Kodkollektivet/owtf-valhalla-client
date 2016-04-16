@@ -1,6 +1,6 @@
 'use strict'
 var express = require('express');
-var admin = require('./admin/app');
+var admin = require('./client/app');
 
 var port = process.env.PORT || 8080
 

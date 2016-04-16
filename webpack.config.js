@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'inline-source-map',
-  entry: './client/app.js',
+  entry: './client/components/app.js',
   output: {
     path: require("path").resolve("./dist"),
     filename: 'bundle.js',

@@ -4,7 +4,7 @@ var router = express.Router()
 adminApp.use(express.static(__dirname + '/public'))
 
 router.get('/', function(req, res){
-    res.sendFile( __dirname + '/public/mockup.html')
+    res.sendFile( __dirname + '/public/mockup2.html')
 })
 
 adminApp.use('/', router)

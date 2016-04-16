@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+import fetch from 'isomorphic-fetch'
 import * as containerMapper from '../common/mappers/api-container-mapper'
 const standardBaseUrl = 'http://localhost:8080';
 
