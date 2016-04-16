@@ -30,6 +30,7 @@
     "redux": "^3.4.0",
     "redux-immutable": "^3.0.6",
     "redux-mock-store": "^1.0.2",
+    "redux-thunk": "^2.0.1",
     "webpack": "^1.12.15"
   },
   "scripts": {
