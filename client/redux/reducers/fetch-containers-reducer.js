@@ -18,19 +18,20 @@ const initialState = Map({
 
 const fetchContainersReducer = (state = initialState, action) => {
 
-    switch (action){
+    switch (action.type){
         case FETCH_CONTAINERS_STARTED:
-            return state.update('fetching', true)
+            return state.set('fetching', true)
             
         case FETCH_CONTAINERS_SUCCESS:
-            return state.withMutations(state => {
-                state.update('fetching', false)
-                state.update('ready', true)
-                state.update('containers', action.containers)
+            return state.withMutations((state) => {
+                state.set('fetching', false)
+                state.set('ready', true)
+                state.set('containers', action.containers)
             })
+            
          
         case FETCH_CONTAINERS_ERROR:
-            return state.update('fail', true)
+            return state.set('fail', true)
     }
     
     return state

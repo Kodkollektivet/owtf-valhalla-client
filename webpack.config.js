@@ -1,14 +1,18 @@
-
-var webpack = require('webpack');
+var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   devtool: 'inline-source-map',
-  entry: './client/components/app.js',
+  entry: './client/client.js',
   output: {
     path: require("path").resolve("./dist"),
     filename: 'bundle.js',
     publicPath: '/'
   },
+  plugins: [new HtmlWebpackPlugin({
+    template : './client/static/index.html',
+    inject: 'body'
+  })],
   module: {
     loaders: [
       {

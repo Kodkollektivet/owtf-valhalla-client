@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import actions from '../redux/actions/action-creators'
+import * as actionCreators from '../redux/actions/action-creators'
 import ContainerList from './containers/container-list'
 
 class App extends Component {
+    
+    errorOnClick () {
+      this.props.actions.logError("I am erorr")
+    }
+    
     componentWillMount() {
         this.props.actions.fetchContainers();
     }
     render() {
         return (
           <div>
+            <button onClick={this.errorOnClick.bind(this)}>Error</button>
             <ContainerList containerList={this.props.containerList} actions={this.props.actions} />
           </div>
         )
@@ -23,7 +29,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators(actionCreators, dispatch)
   }
 }
 
