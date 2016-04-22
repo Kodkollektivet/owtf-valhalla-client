@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import * as containerMapper from '../common/mappers/api-container-mapper'
-const standardBaseUrl = 'https://owtf-valhalla-admin-spetastian.c9users.io';
+const standardBaseUrl = 'http://localhost:8080';
 
 export function api (baseUrl = standardBaseUrl){
     return {

@@ -12,7 +12,6 @@ const mockStore = configureMockStore(middlewares);
 
 describe('redux async "fetch containers actions" tests', function() {
     let fakeRootUrl = 'http://localhost:8080'
-    this.timeout(15000);
     before(function() {
         nock(fakeRootUrl)
             .get('/containers')

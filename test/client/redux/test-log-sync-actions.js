@@ -1,14 +1,18 @@
 import * as actions from '../../../client/redux/actions/action-creators'
-import configureStore from '../../../client/redux/store/configure-store'
+import rootReducer from '../../../client/redux/reducers'
+import { createStore } from 'redux'
 import logLevels from '../../../client/common/log-levels'
 import chai from 'chai'
 import nock from 'nock'
+import {Map} from 'immutable'
 let assert = chai.assert
+
 
 describe('log redux actions tests', function() {
      describe('log redux actions', function() {
          it('should contain only one info-message (welcome message) when no other log actions has been dispatched', function(){
-            let store = configureStore();
+            
+            let store = createStore(rootReducer, Map({}))
             let state = store.getState().toJS();
             assert.lengthOf(state.log.entries, 1, 'There should be only one log entry')
             assert.equal(state.log.entries[0].level, logLevels.info, 'The level of the log entry should be "Info"')
@@ -16,7 +20,7 @@ describe('log redux actions tests', function() {
          
         it('should contain messages in the correct order of the expected types when dispatching several log messages', function(){
             
-            let store = configureStore();
+            let store = createStore(rootReducer, Map({}))
             store.dispatch(actions.logInfo('Test info message 1'))
             store.dispatch(actions.logInfo('Test info message 2'))
             store.dispatch(actions.logWarn('Test warn message 1'))
