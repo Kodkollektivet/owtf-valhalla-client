@@ -1,5 +1,3 @@
-import {getContainers} from '../../services/core-api-service'
-//let coreApi = new CoreApiService()
 import {Map} from 'immutable'
 
 import {
@@ -29,7 +27,6 @@ const fetchContainersReducer = (state = initialState, action) => {
                 state.set('containers', action.containers)
             })
             
-         
         case FETCH_CONTAINERS_ERROR:
             return state.set('fail', true)
     }

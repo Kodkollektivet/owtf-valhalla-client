@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as actionCreators from '../redux/actions/action-creators'
+import * as actionCreator from '../redux/actions/action-creator'
 import ContainerList from './containers/container-list'
 
 class App extends Component {
@@ -29,7 +29,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actionCreators, dispatch)
+    actions: bindActionCreators(actionCreator.create({coreApiUrl:process.env.CORE_API_URL}), dispatch)
   }
 }
 

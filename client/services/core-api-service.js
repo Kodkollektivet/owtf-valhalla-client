@@ -4,7 +4,6 @@ const standardBaseUrl = 'http://localhost:8080';
 
 export function api (baseUrl = standardBaseUrl){
     return {
-        
         getContainers: () => {
             let url = baseUrl+'/containers';
             return fetch(url)

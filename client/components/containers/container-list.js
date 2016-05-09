@@ -7,7 +7,7 @@ export default function ContainerList({containerList}){
             return <ContainerThumbnail key={container.container.id} container={container.container} />
           })
     
-    return  <div className="col-sm-4 col-md-4">
+    return  <div className="col-sm-12 col-md-12">
         {containerList.containers.length}
         {thumbnails}
     </div>

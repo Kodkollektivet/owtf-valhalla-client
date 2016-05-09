@@ -7,8 +7,7 @@ export default function ContainerThumbnail({container}){
       <div className="caption">
         <h3>{container.name}</h3>
         <p>{container.ip}</p>
-        <p>{container.tag}</p>
-        
+        <p>{container.tag}</p> 
         <p>
             <ContainerActionButtons running={container.running} built={container.built} />
         </p>

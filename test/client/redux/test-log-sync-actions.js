@@ -1,4 +1,4 @@
-import * as actions from '../../../client/redux/actions/action-creators'
+import * as actionCreator from '../../../client/redux/actions/action-creator'
 import rootReducer from '../../../client/redux/reducers'
 import { createStore } from 'redux'
 import logLevels from '../../../client/common/log-levels'
@@ -6,6 +6,7 @@ import chai from 'chai'
 import nock from 'nock'
 import {Map} from 'immutable'
 let assert = chai.assert
+const actions = actionCreator.create()
 
 
 describe('log redux actions tests', function() {
