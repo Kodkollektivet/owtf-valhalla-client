@@ -8,7 +8,6 @@ export default function ContainerList({containerList}){
           })
     
     return  <div className="col-sm-12 col-md-12">
-        {containerList.containers.length}
         {thumbnails}
     </div>
 }
