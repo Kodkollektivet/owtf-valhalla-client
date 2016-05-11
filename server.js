@@ -20,20 +20,20 @@ router.get('/containers/:image/build_image', (req, res) => {
 
 router.get('/containers/:image/build_container', (req, res) => {
     res.status(200).send('This is nice!')
-    
+
 })
 
 router.get('/containers/:image/start', (req, res) => {
     res.status(200).send('This is nice!')
-    
+
 })
 
 router.get('/containers/:image/stop', (req, res) => {
     res.status(200).send('This is nice!')
-    
+
 })
 
-router.get('/containers', (req, res) => {
+router.get('/containers/', (req, res) => {
     res.json([
         {
             "image": "owtfvalhallatestcontainer:0.1",
@@ -65,7 +65,7 @@ router.get('/containers', (req, res) => {
             "is_valid": true,
             "is_running": false
         },
-        
+
         {
             "image": "owtfvalhallatestcontainer:0.1",
             "image_id": "sha456:30511d3bf28058ef62e7361c06cac65314d65ac279852c2acf3226ade0de006d",
@@ -96,7 +96,7 @@ router.get('/containers', (req, res) => {
             "is_valid": true,
             "is_running": false
         },
-        
+
         {
             "image": "owtfvalhallatestcontainer:0.1",
             "image_id": "sha556:30511d3bf28058ef62e7361c06cac65314d65ac279852c2acf3226ade0de006d",
@@ -127,7 +127,7 @@ router.get('/containers', (req, res) => {
             "is_valid": true,
             "is_running": false
         },
-        
+
         {
             "image": "owtfvalhallatestcontainer:0.1",
             "image_id": "sha656:30511d3bf28058ef62e7361c06cac65314d65ac279852c2acf3226ade0de006d",

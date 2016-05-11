@@ -3,6 +3,7 @@ const fakeApiUrl = 'http://fake.core-api'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import * as actionCreator from '../../../client/redux/actions/action-creator'
+import {api} from '../../../client/services/core-api-service'
 import chai from 'chai'
 import nock from 'nock'
 import * as fakeData from './fake-data'
@@ -11,7 +12,7 @@ let assert = chai.assert
 
 const middlewares = [thunk]; // add your middlewares like `redux-thunk`
 const mockStore = configureMockStore(middlewares);
-const actions = actionCreator.create({coreApiUrl: fakeApiUrl})
+const actions = actionCreator.create(api(fakeApiUrl))
 
 describe('redux async "fetch containers actions" tests', function() {
     before(function() {
@@ -19,11 +20,11 @@ describe('redux async "fetch containers actions" tests', function() {
             .get('/containers')
             .reply(200, fakeData.apiContainers);
     });
-    
+
     describe('dispatching "fetch containers" async action', function() {
         it('should update state twice, once for "started" and once for "success" with an array of containers', function(done){
             var store = mockStore({})
-            store.dispatch(actions.fetchContainers())
+            store.dispatch(actions.fetchContainersRequest())
                   .then(() => { // return of async actions
                     let actions = store.getActions()
                     assert.equal(actions[0].type, 'FETCH_CONTAINERS_STARTED', 'First action should be FETCH_CONTAINERS_STARTED')
@@ -34,5 +35,5 @@ describe('redux async "fetch containers actions" tests', function() {
                   .catch(done) // test failed
               })
         });
-    
+
 })

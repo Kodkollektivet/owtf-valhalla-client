@@ -11,31 +11,31 @@ class App extends Component {
       this.handleStartContainer = this.handleStartContainer.bind(this)
       this.handleStopContainer = this.handleStopContainer.bind(this)
     }
-  
+
     componentWillMount() {
         this.props.actions.fetchContainersRequest()
     }
-    
+
     handleBuildContainer (id){
       this.props.actions.buildContainerRequest(id)
     }
-    
+
     handleStartContainer (id){
       this.props.actions.startContainerRequest(id)
     }
-    
+
     handleStopContainer (id){
       this.props.actions.stopContainerRequest(id)
     }
-    
+
     render() {
         return (
           <div>
-            <ContainerList 
-              containerList={this.props.containerList} 
-              handleBuildContainer={this.handleBuildContainer} 
-              handleStartContainer={this.handleStartContainer} 
-              handleStopContainer={this.handleStopContainer} 
+            <ContainerList
+              containerList={this.props.containerList}
+              handleBuildContainer={this.handleBuildContainer}
+              handleStartContainer={this.handleStartContainer}
+              handleStopContainer={this.handleStopContainer}
               />
           </div>
         )
@@ -48,7 +48,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actionCreator.create({coreApiUrl:process.env.CORE_API_URL}), dispatch)
+    actions: bindActionCreators(actionCreator.create(), dispatch)
   }
 }
 

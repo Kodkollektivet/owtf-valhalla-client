@@ -29,7 +29,6 @@ const initialState = Map({
 const containersReducer = (state = initialState, action) => {
 
     switch (action.type){
-
         //Fetch container actions
         case FETCH_CONTAINERS_STARTED:
             return state.set('fetching', true)
@@ -38,11 +37,34 @@ const containersReducer = (state = initialState, action) => {
             return state.withMutations((state) => {
                 state.set('fetching', false)
                 state.set('ready', true)
-                state.set('containers', action.containers)
+                state.set('containers', List(action.containers))
             })
 
         case FETCH_CONTAINERS_ERROR:
             return state.set('fail', true)
+
+        case BUILD_CONTAINER_STARTED:
+          return state.update('containers', containers =>
+            containers.update(
+                containers.findIndex((container) => {return container.image.id === action.imageId}),
+                (container) =>{return Map(container).set('thinking', true)}
+            ))
+
+        case BUILD_CONTAINER_SUCCESS:
+          return state.update('containers', containers =>
+            containers.update(
+                containers.findIndex((container) => {return container.image.id === action.imageId}),
+                (container) =>{return Map(container).set('thinking', false)}
+                /*
+                (container) =>{
+                  return Map(container).withMutations((c) => {
+                      c.set('thinking', false)
+                      c.set('built', true)
+                }
+
+              )}
+              */
+            ))
     }
 
     return state

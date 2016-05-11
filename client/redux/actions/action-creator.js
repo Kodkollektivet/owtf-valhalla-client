@@ -1,20 +1,20 @@
 import {
     FETCH_CONTAINERS_STARTED,
-    FETCH_CONTAINERS_SUCCESS, 
+    FETCH_CONTAINERS_SUCCESS,
     FETCH_CONTAINERS_FAILURE,
-    
+
     BUILD_CONTAINER_STARTED,
     BUILD_CONTAINER_SUCCESS,
     BUILD_CONTAINER_FAILURE,
-    
+
     START_CONTAINER_STARTED,
     START_CONTAINER_SUCCESS,
     START_CONTAINER_FAILURE,
-    
+
     STOP_CONTAINER_STARTED,
     STOP_CONTAINER_SUCCESS,
     STOP_CONTAINER_FAILURE,
-    
+
     LOG_INFO,
     LOG_WARN,
     LOG_ERROR,
@@ -23,8 +23,7 @@ import {
 
 import {api} from '../../services/core-api-service'
 
-export function create(options = {}){
-  let coreApi = api(options.coreApiUrl)
+export function create(coreApi = api()){
   return {
     fetchContainersRequest(){
       return dispatch => {
@@ -34,16 +33,16 @@ export function create(options = {}){
               .catch(ex => dispatch(fetchContainersFailure(ex)))
       }
     },
-    
+
     buildContainerRequest(id){
       return dispatch => {
-        dispatch(buildContainersStarted())
+        dispatch(buildContainersStarted(id))
         return coreApi.buildContainer(id)
                 .then(containerId => dispatch(buildContainersSuccess(containerId)))
                 .catch(ex => dispatch(buildContainersFailure(ex)))
       }
     },
-    
+
     startContainerRequest(id){
       return dispatch => {
         dispatch(startContainersStarted())
@@ -52,7 +51,7 @@ export function create(options = {}){
                 .catch(ex => dispatch(startContainersFailure(ex)))
       }
     },
-    
+
     stopContainerRequest(id){
       return dispatch => {
         dispatch(stopContainersStarted())
@@ -61,19 +60,19 @@ export function create(options = {}){
                 .catch(ex => dispatch(stopContainersFailure(ex)))
       }
     },
-    
+
     logInfo(message, inner){
       return {type: LOG_INFO, message: message, inner: inner}
     },
-    
+
     logWarn(message, inner){
       return {type: LOG_WARN, message: message, inner: inner}
     },
-    
+
     logError(message, inner){
       return {type: LOG_ERROR, message: message, inner: inner}
     },
-    
+
     logCritical(message, inner){
       return {type: LOG_CRITICAL, message: message, inner: inner}
     }
@@ -94,12 +93,12 @@ function fetchContainersFailure(error) {
 }
 
 //Build container async private action creators
-function buildContainersStarted() {
-  return {type: BUILD_CONTAINER_STARTED}
+function buildContainersStarted(id) {
+  return {type: BUILD_CONTAINER_STARTED, imageId: id}
 }
 
-function buildContainersSuccess(containerId) {
-  return {type: BUILD_CONTAINER_SUCCESS, containerId: containerId}
+function buildContainersSuccess(id) {
+  return {type: BUILD_CONTAINER_SUCCESS, imageId: id}
 }
 
 function buildContainersFailure(error) {
