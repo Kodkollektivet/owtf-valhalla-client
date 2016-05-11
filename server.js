@@ -14,6 +14,25 @@ router.get('/mockup', (req, res) => {
     res.sendFile( __dirname + '/public/mockup2.html')
 })
 
+router.get('/containers/:image/build_image', (req, res) => {
+    res.status(200).send('This is nice!')
+})
+
+router.get('/containers/:image/build_container', (req, res) => {
+    res.status(200).send('This is nice!')
+    
+})
+
+router.get('/containers/:image/start', (req, res) => {
+    res.status(200).send('This is nice!')
+    
+})
+
+router.get('/containers/:image/stop', (req, res) => {
+    res.status(200).send('This is nice!')
+    
+})
+
 router.get('/containers', (req, res) => {
     res.json([
         {
