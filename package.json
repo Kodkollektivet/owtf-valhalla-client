@@ -48,7 +48,8 @@
     "test:watch": "npm test -- --watch",
     "build": "webpack",
     "prestart": "npm run build",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "webpack-dev-server --hot --inline --progress --colors -d --host 0.0.0.0"
   },
   "keywords": [
     "owtf",
