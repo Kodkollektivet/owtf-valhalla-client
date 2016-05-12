@@ -1,4 +1,4 @@
-module.exports.apiContainers = [
+module.exports.apiContainersJson = [
     {
         'image' : 'test-image-01',
         'image_id' : 'i1',
@@ -41,5 +41,49 @@ module.exports.apiContainers = [
         'is_valid' : 'true',
         'is_running' : 'false'
     }
-];
+]
 
+module.exports.mappedContainerObjects = [
+    {
+        thinking: false, //State helper value
+        valid: '',
+        running: false,
+        ip: '',
+        results: '',
+        config: '',
+        image: {
+            id: 'i1',
+            name: 'image 1',
+            version: '',
+            path: '',
+            isBuilt: true,
+        },
+        container: {
+            id: 'c1',
+            name: 'container 1',
+            tag: 'tag',
+            built: true
+        }
+    },
+       {
+        thinking: false, //State helper value
+        valid: '',
+        running: false,
+        ip: '',
+        results: '',
+        config: '',
+        image: {
+            id: 'i2',
+            name: 'image 2',
+            version: '',
+            path: '',
+            isBuilt: false,
+        },
+        container: {
+            id: 'c2',
+            name: 'container 2',
+            tag: 'tag',
+            built: false
+        }
+    }
+]

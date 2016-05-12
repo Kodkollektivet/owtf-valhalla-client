@@ -36,28 +36,28 @@ export function create(coreApi = api()){
 
     buildContainerRequest(id){
       return dispatch => {
-        dispatch(buildContainersStarted(id))
+        dispatch(buildContainerStarted(id))
         return coreApi.buildContainer(id)
-                .then(containerId => dispatch(buildContainersSuccess(containerId)))
-                .catch(ex => dispatch(buildContainersFailure(ex)))
+                .then(containerId => dispatch(buildContainerSuccess(containerId)))
+                .catch(ex => dispatch(buildContainerFailure(ex)))
       }
     },
 
     startContainerRequest(id){
       return dispatch => {
-        dispatch(startContainersStarted())
+        dispatch(startContainerStarted(id))
         return coreApi.startContainer(id)
-                .then(containerId => dispatch(startContainersSuccess(containerId)))
-                .catch(ex => dispatch(startContainersFailure(ex)))
+                .then(containerId => dispatch(startContainerSuccess(id)))
+                .catch(ex => dispatch(startContainerFailure(ex)))
       }
     },
 
     stopContainerRequest(id){
       return dispatch => {
-        dispatch(stopContainersStarted())
+        dispatch(stopContainerStarted())
         return coreApi.stopContainer(id)
-                .then(containerId => dispatch(stopContainersSuccess(containerId)))
-                .catch(ex => dispatch(stopContainersFailure(ex)))
+                .then(containerId => dispatch(stopContainerSuccess(containerId)))
+                .catch(ex => dispatch(stopContainerFailure(ex)))
       }
     },
 
@@ -93,41 +93,41 @@ function fetchContainersFailure(error) {
 }
 
 //Build container async private action creators
-function buildContainersStarted(id) {
+function buildContainerStarted(id) {
   return {type: BUILD_CONTAINER_STARTED, imageId: id}
 }
 
-function buildContainersSuccess(id) {
+function buildContainerSuccess(id) {
   return {type: BUILD_CONTAINER_SUCCESS, imageId: id}
 }
 
-function buildContainersFailure(error) {
+function buildContainerFailure(error) {
   return {type: BUILD_CONTAINER_FAILURE, error: error}
 }
 
 //Start container async private action creators
-function startContainersStarted() {
-  return {type: START_CONTAINER_STARTED}
+function startContainerStarted(id) {
+  return {type: START_CONTAINER_STARTED, imageId: id}
 }
 
-function startContainersSuccess(containerId) {
-  return {type: START_CONTAINER_SUCCESS, containerId: containerId}
+function startContainerSuccess(id) {
+  return {type: START_CONTAINER_SUCCESS, imageId: id}
 }
 
-function startContainersFailure(error) {
+function startContainerFailure(error) {
   return {type: START_CONTAINER_FAILURE, error: error}
 }
 
 
 //Start container async private action creators
-function stopContainersStarted() {
+function stopContainerStarted() {
   return {type: STOP_CONTAINER_STARTED}
 }
 
-function stopContainersSuccess(containerId) {
+function stopContainerSuccess(containerId) {
   return {type: STOP_CONTAINER_SUCCESS, containerId: containerId}
 }
 
-function stopContainersFailure(error) {
+function stopContainerFailure(error) {
   return {type: STOP_CONTAINER_FAILURE, error: error}
 }
