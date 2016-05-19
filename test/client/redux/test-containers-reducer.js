@@ -137,12 +137,12 @@ describe('redux containers reducer tests', () =>{
                     }]
             })
             
-            it('should return a state where target container has thinking set to true and container.built set to true', () => {
+            it('should return a state where target container has thinking set to false and container.built set to true', () => {
                 let action = {type: BUILD_CONTAINER_SUCCESS, imageId: "i2"}
                 let nextState = containersReducer(initialState, action)
                 let result = nextState.toJS()
                 assert.equal(result.containers[1].thinking, false, 'The thinking field should be false for the targeted container in the returned state object')
-                assert.equal(result.containers[1].container.built, true, 'The isBuilt field should be true for the targeted container in the returned state object')
+                assert.equal(result.containers[1].container.built, true, 'The container.built field should be true for the targeted container in the returned state object')
             })
             
         })
@@ -178,23 +178,177 @@ describe('redux containers reducer tests', () =>{
         })
         
         describe('action START_CONTAINER_STARTED', () =>{
+            const initialState = fromJS({
+                fetching: true,
+                ready: true,
+                fail: false,
+                containers: [
+                    {
+                        container:{id:"c1", built: true}, 
+                        image:{id:"i1", isBuilt: true}, 
+                        thinking:false
+                    },
+                    {
+                        container:{id:"c2", built: true}, 
+                        image:{id:"i2", isBuilt: true}, 
+                        thinking:false
+                    }]
+            })
             
-        })
-        describe('action START_CONTAINER_SUCCESS', () =>{
-            
-        })
-        describe('action START_CONTAINER_FAILURE', () =>{
-            
+            it('should return a state where target container has thinking set to true', () => {
+                let action = {type: START_CONTAINER_STARTED, imageId: "i2"}
+                let nextState = containersReducer(initialState, action)
+                let result = nextState.toJS()
+                assert.equal(result.containers[1].thinking, true, 'The thinking field should be true for the targeted container in the returned state object')
+            })
         })
         
-        describe('action START_CONTAINER_STARTED', () =>{
-            
-        })
         describe('action START_CONTAINER_SUCCESS', () =>{
+            const initialState = fromJS({
+                fetching: true,
+                ready: true,
+                fail: false,
+                containers: [
+                    {
+                        container:{id:"c1", built: true}, 
+                        image:{id:"i1", isBuilt: true}, 
+                        thinking:false,
+                        running: false
+                    },
+                    {
+                        container:{id:"c2", built: true}, 
+                        image:{id:"i2", isBuilt: true}, 
+                        thinking:true,
+                        running: false
+                    }]
+            })
             
+            it('should return a state where target container has thinking set to false and running set to true', () => {
+                let action = {type: START_CONTAINER_SUCCESS, imageId: "i2"}
+                let nextState = containersReducer(initialState, action)
+                let result = nextState.toJS()
+                assert.equal(result.containers[1].thinking, false, 'The thinking field should be false for the targeted container in the returned state object')
+                assert.equal(result.containers[1].running, true, 'The running field should be true for the targeted container in the returned state object')
+            })
         })
+        
         describe('action START_CONTAINER_FAILURE', () =>{
+            const initialState = fromJS({
+                fetching: true,
+                ready: true,
+                fail: false,
+                containers: [
+                    {
+                        container:{id:"c1", built: true}, 
+                        image:{id:"i1", isBuilt: true}, 
+                        thinking:true,
+                        hasError:false,
+                        running: false
+                    },
+                    {
+                        container:{id:"c2", built: true}, 
+                        image:{id:"i2", isBuilt: true},  
+                        thinking:false,
+                        hasError:false,
+                        running: false
+                    }]
+            })
             
+            it('should return a state where the target container has hasError field set to true and thinking set to false', () => {
+                let action = {type: START_CONTAINER_FAILURE, imageId: "i1", error: new Error("Build container failure")}
+                let nextState = containersReducer(initialState, action)
+                let result = nextState.toJS();
+                assert.equal(result.containers[0].thinking, false, 'The thinking field should be false in the returned state object')
+                assert.equal(result.containers[0].hasError, true, 'The hasError field should be true in the returned state object')
+            })
+        })
+        
+        describe('action STOP_CONTAINER_STARTED', () =>{
+            const initialState = fromJS({
+                fetching: true,
+                ready: true,
+                fail: false,
+                containers: [
+                    {
+                        container:{id:"c1", built: true}, 
+                        image:{id:"i1", isBuilt: true}, 
+                        thinking:false,
+                        running: true
+                    },
+                    {
+                        container:{id:"c2", built: true}, 
+                        image:{id:"i2", isBuilt: true}, 
+                        thinking:false,
+                        running: true
+                    }]
+            })
+            
+            it('should return a state where target container has thinking set to true', () => {
+                let action = {type: STOP_CONTAINER_STARTED, imageId: "i2"}
+                let nextState = containersReducer(initialState, action)
+                let result = nextState.toJS()
+                assert.equal(result.containers[1].thinking, true, 'The thinking field should be true for the targeted container in the returned state object')
+            })
+        })
+        
+        describe('action STOP_CONTAINER_SUCCESS', () =>{
+            const initialState = fromJS({
+                fetching: true,
+                ready: true,
+                fail: false,
+                containers: [
+                    {
+                        container:{id:"c1", built: true}, 
+                        image:{id:"i1", isBuilt: true}, 
+                        thinking:false,
+                        running: true
+                    },
+                    {
+                        container:{id:"c2", built: true}, 
+                        image:{id:"i2", isBuilt: true}, 
+                        thinking:true,
+                        running: true
+                    }]
+            })
+            
+            it('should return a state where target container has thinking set to false and running set to true', () => {
+                let action = {type: STOP_CONTAINER_SUCCESS, imageId: "i2"}
+                let nextState = containersReducer(initialState, action)
+                let result = nextState.toJS()
+                assert.equal(result.containers[1].thinking, false, 'The thinking field should be false for the targeted container in the returned state object')
+                assert.equal(result.containers[1].running, false, 'The running field should be false for the targeted container in the returned state object')
+            })
+        })
+        
+        describe('action STOP_CONTAINER_FAILURE', () =>{
+            const initialState = fromJS({
+                fetching: true,
+                ready: true,
+                fail: false,
+                containers: [
+                    {
+                        container:{id:"c1", built: true}, 
+                        image:{id:"i1", isBuilt: true}, 
+                        thinking:true,
+                        hasError:false,
+                        running: true
+                    },
+                    {
+                        container:{id:"c2", built: true}, 
+                        image:{id:"i2", isBuilt: true},  
+                        thinking:false,
+                        hasError:false,
+                        running: true
+                    }]
+            })
+            
+            it('should return a state where the target container has hasError field set to true and thinking set to false', () => {
+                let action = {type: STOP_CONTAINER_FAILURE, imageId: "i1", error: new Error("Build container failure")}
+                let nextState = containersReducer(initialState, action)
+                let result = nextState.toJS();
+                assert.equal(result.containers[0].thinking, false, 'The thinking field should be false in the returned state object')
+                assert.equal(result.containers[0].hasError, true, 'The hasError field should be true in the returned state object')
+            })
         })
     
 })

@@ -45,13 +45,15 @@ const containersReducer = (state = initialState, action) => {
                 state.set('fail', true)
             })
         
+        case START_CONTAINER_STARTED:
         case BUILD_CONTAINER_STARTED:
+        case STOP_CONTAINER_STARTED:
           return state.update('containers', containers =>
             containers.update(
-                containers.findIndex(container => container.getIn(['image','id']) === action.imageId),
-                container =>container.set('thinking', true)
+                containers.findIndex(container => container.toJS().image.id === action.imageId),
+                container => container.set('thinking', true)
             ))
-
+            
         case BUILD_CONTAINER_SUCCESS:
           return state.update('containers', containers =>
             containers.update(
@@ -64,7 +66,33 @@ const containersReducer = (state = initialState, action) => {
                 }
             ))
             
+        case START_CONTAINER_SUCCESS:
+          return state.update('containers', containers =>
+            containers.update(
+                containers.findIndex(container => container.getIn(['image','id']) === action.imageId),
+                container =>{
+                   return container.withMutations(container => {
+                        container.set('thinking', false)
+                        container.set('running', true)
+                    })
+                }
+            ))
+            
+        case STOP_CONTAINER_SUCCESS:
+          return state.update('containers', containers =>
+            containers.update(
+                containers.findIndex(container => container.getIn(['image','id']) === action.imageId),
+                container =>{
+                   return container.withMutations(container => {
+                        container.set('thinking', false)
+                        container.set('running', false)
+                    })
+                }
+            ))
+            
+        case START_CONTAINER_FAILURE:
         case BUILD_CONTAINER_FAILURE:
+        case STOP_CONTAINER_FAILURE:
           return state.update('containers', containers =>
             containers.update(
                 containers.findIndex(container => container.getIn(['image','id']) === action.imageId),
@@ -75,25 +103,7 @@ const containersReducer = (state = initialState, action) => {
                     })
                 }
             ))
-        
-        case START_CONTAINER_STARTED:
-          return state.update('containers', containers =>
-            containers.update(
-                containers.findIndex(container => container.toJS().image.id === action.imageId),
-                container => container.set('thinking', true)
-            ))
             
-        case START_CONTAINER_SUCCESS:
-          return state.update('containers', (containers) =>
-            containers.update(
-                containers.findIndex(container => container.toJS().image.id === action.imageId),
-                container =>{
-                    container.withMutations(container => {
-                        container.set('thinking', false)
-                        container.setIn(['container', 'running'], true)
-                    })
-                }
-            ))
     }
 
     return state
