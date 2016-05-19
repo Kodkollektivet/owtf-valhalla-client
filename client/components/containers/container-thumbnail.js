@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ContainerActionButtons from './container-action-buttons'
-import CogSpinner from './cog-spinner'
+import StatusIcons from './status-icons'
 
 class ContainerThumbnail extends Component {
     
@@ -8,7 +8,7 @@ class ContainerThumbnail extends Component {
         let imageId = this.props.container.image.id;
         return (<div className="col-sm-4 col-md-4">
         <div className="thumbnail">
-          <CogSpinner showSpinner={this.props.container.thinking} />
+          <StatusIcons thinking={this.props.container.thinking} hasError={this.props.container.hasError}  />
           <div className="caption">
             <h3>{this.props.container.container.name}</h3>
             <p>{this.props.container.container.ip}</p>
