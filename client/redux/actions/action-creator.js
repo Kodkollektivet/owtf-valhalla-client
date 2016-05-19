@@ -39,7 +39,7 @@ export function create(coreApi = api()){
         dispatch(buildContainerStarted(id))
         return coreApi.buildContainer(id)
                 .then(containerId => dispatch(buildContainerSuccess(containerId)))
-                .catch(ex => dispatch(buildContainerFailure(ex)))
+                .catch(ex => dispatch(buildContainerFailure(id, ex)))
       }
     },
 
@@ -48,7 +48,7 @@ export function create(coreApi = api()){
         dispatch(startContainerStarted(id))
         return coreApi.startContainer(id)
                 .then(containerId => dispatch(startContainerSuccess(id)))
-                .catch(ex => dispatch(startContainerFailure(ex)))
+                .catch(ex => dispatch(startContainerFailure(id, ex)))
       }
     },
 
@@ -57,7 +57,7 @@ export function create(coreApi = api()){
         dispatch(stopContainerStarted())
         return coreApi.stopContainer(id)
                 .then(containerId => dispatch(stopContainerSuccess(containerId)))
-                .catch(ex => dispatch(stopContainerFailure(ex)))
+                .catch(ex => dispatch(stopContainerFailure(id, ex)))
       }
     },
 
@@ -101,8 +101,8 @@ function buildContainerSuccess(id) {
   return {type: BUILD_CONTAINER_SUCCESS, imageId: id}
 }
 
-function buildContainerFailure(error) {
-  return {type: BUILD_CONTAINER_FAILURE, error: error}
+function buildContainerFailure(id, error) {
+  return {type: BUILD_CONTAINER_FAILURE, imageId: id, error: error}
 }
 
 //Start container async private action creators

@@ -14,8 +14,8 @@ const middlewares = [thunk] // add your middlewares like `redux-thunk`
 const mockStore = configureMockStore(middlewares)
 const actions = actionCreator.create(api(fakeApiUrl))
 
-describe('redux async "fetch containers actions" tests', function() {
-    before(function() {
+describe('redux async action creators tests', () => {
+    before(() => {
         nock(fakeApiUrl)
             .get('/containers')
             .reply(200, fakeData.apiContainersJson)
@@ -25,8 +25,8 @@ describe('redux async "fetch containers actions" tests', function() {
             .reply(200, 'Okey')
     });
         
-    describe('dispatching "fetch container" async action', function() {
-        it('should update state twice, once for "started" and once for "success" with an array of containers', function(done){
+    describe('dispatching "fetch container" async action', () => {
+        it('should update state twice, once for "started" and once for "success" with an array of containers', (done) => {
             let store = mockStore({})
             store.dispatch(actions.fetchContainersRequest())
                   .then(() => { // return of async actions
@@ -40,8 +40,8 @@ describe('redux async "fetch containers actions" tests', function() {
               })
         });
         
-    describe('dispatching "start container" async action', function() {
-        it('should update state twice, once for "started" and once for "success" with the image id', function(done){
+    describe('dispatching "start container" async action', () => {
+        it('should update state twice, once for "started" and once for "success" with the image id', (done) =>{
             let initialState = Map({
                 fetching: false,
                 ready: true,
@@ -52,13 +52,9 @@ describe('redux async "fetch containers actions" tests', function() {
             let store = mockStore(initialState)
             store.dispatch(actions.startContainerRequest('i1'))
                   .then(() => { // return of async actions
-                    console.log(store.getActions())
                     let actions = store.getActions()
                     assert.equal(actions[0].type, 'START_CONTAINER_STARTED', 'First action should be START_CONTAINERS_STARTED')
-                    let state = store.getState().toJS()
-                    console.log(state)
                     assert.equal(actions[1].type, 'START_CONTAINER_SUCCESS', 'Second action should be START_CONTAINERS_SUCCESS')
-                    assert.equal(state.containers[0].thinking, false, 'First containers thinking field should be false after success action')
                     assert.equal(actions[1].imageId, 'i1', 'Second actions data should be the image id')
                   })
                   .then(done) // test passed

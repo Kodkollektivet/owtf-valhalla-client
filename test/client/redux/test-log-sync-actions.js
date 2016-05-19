@@ -9,9 +9,9 @@ let assert = chai.assert
 const actions = actionCreator.create()
 
 
-describe('log redux actions tests', function() {
-     describe('log redux actions', function() {
-         it('should contain only one info-message (welcome message) when no other log actions has been dispatched', function(){
+describe('log redux actions tests', () => {
+     describe('log redux actions', () => {
+         it('should contain only one info-message (welcome message) when no other log actions has been dispatched', () => {
             
             let store = createStore(rootReducer, Map({}))
             let state = store.getState().toJS();
@@ -19,7 +19,7 @@ describe('log redux actions tests', function() {
             assert.equal(state.log.entries[0].level, logLevels.info, 'The level of the log entry should be "Info"')
          })
          
-        it('should contain messages in the correct order of the expected types when dispatching several log messages', function(){
+        it('should contain messages in the correct order of the expected types when dispatching several log messages', () => {
             
             let store = createStore(rootReducer, Map({}))
             store.dispatch(actions.logInfo('Test info message 1'))
