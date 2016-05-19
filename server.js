@@ -1,8 +1,12 @@
 'use strict'
 let express = require('express')
+let cors = require('cors')
+
+
 let port = process.env.PORT || 8080
 
 let app = express()
+app.use(cors())
 app.use(express.static(__dirname + '/dist'))
 
 let router = express.Router()
@@ -33,7 +37,7 @@ router.get('/containers/:image/stop', (req, res) => {
 
 })
 
-router.get('/containers/', (req, res) => {
+router.get('/containers', (req, res) => {
     res.json([
         {
             "image": "owtfvalhallatestcontainer:0.1",

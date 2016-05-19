@@ -1,6 +1,7 @@
 export function mapSingle (apiEntity){
     return {
         thinking: false, //State helper value
+        hasError: false, //State helper value
         valid: apiEntity.is_valid,
         running: apiEntity.is_running,
         ip: apiEntity.ip_address,
