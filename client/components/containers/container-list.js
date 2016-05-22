@@ -12,8 +12,12 @@ export default function ContainerList({containerList, handleBuildContainer, hand
                 handleStop={handleStopContainer}
                 handleRemove={handleRemoveContainer}
             />
+<<<<<<< b31c383b00c25d441d5f0e779b2c3ba4c2dd8128
     })
     
+=======
+
+>>>>>>> Added UI state for building/run/stop
     return  <div className="col-sm-12 col-md-12">
         {thumbnails}
     </div>
