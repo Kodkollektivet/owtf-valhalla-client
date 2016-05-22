@@ -10,7 +10,7 @@ import {
     REMOVE_CONTAINER_STARTED,
     REMOVE_CONTAINER_SUCCESS,
     REMOVE_CONTAINER_FAILURE,
-    
+
     START_CONTAINER_STARTED,
     START_CONTAINER_SUCCESS,
     START_CONTAINER_FAILURE,
@@ -41,8 +41,8 @@ export function create(coreApi = api()){
     buildContainerRequest(id){
       return dispatch => {
         dispatch(buildContainerStarted(id))
-        return coreApi.buildImage(id)
-                .then(containerId => dispatch(buildContainerSuccess(containerId)))
+        return coreApi.buildContainer(id)
+                .then(containerId => dispatch(buildContainerSuccess(id)))
                 .catch(ex => dispatch(buildContainerFailure(id, ex)))
       }
     },
@@ -55,7 +55,7 @@ export function create(coreApi = api()){
                 .catch(ex => dispatch(removeContainerFailure(id, ex)))
       }
     },
-      
+
     startContainerRequest(id){
       return dispatch => {
         dispatch(startContainerStarted(id))
@@ -67,9 +67,9 @@ export function create(coreApi = api()){
 
     stopContainerRequest(id){
       return dispatch => {
-        dispatch(stopContainerStarted())
+        dispatch(stopContainerStarted(id))
         return coreApi.stopContainer(id)
-                .then(containerId => dispatch(stopContainerSuccess(containerId)))
+                .then(containerId => dispatch(stopContainerSuccess(id)))
                 .catch(ex => dispatch(stopContainerFailure(id, ex)))
       }
     },

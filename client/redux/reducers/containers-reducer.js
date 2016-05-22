@@ -48,7 +48,7 @@ const containersReducer = (state = initialState, action) => {
                 state.set('fetching', false)
                 state.set('fail', true)
             })
-        
+
         case START_CONTAINER_STARTED:
         case BUILD_CONTAINER_STARTED:
         case REMOVE_CONTAINER_STARTED:
@@ -58,7 +58,7 @@ const containersReducer = (state = initialState, action) => {
                 containers.findIndex(container => container.toJS().image.id === action.imageId),
                 container => container.set('thinking', true)
             ))
-            
+
         case BUILD_CONTAINER_SUCCESS:
           return state.update('containers', containers =>
             containers.update(
@@ -70,7 +70,7 @@ const containersReducer = (state = initialState, action) => {
                     })
                 }
             ))
-            
+
         case START_CONTAINER_SUCCESS:
           return state.update('containers', containers =>
             containers.update(
@@ -82,7 +82,7 @@ const containersReducer = (state = initialState, action) => {
                     })
                 }
             ))
-            
+
         case STOP_CONTAINER_SUCCESS:
           return state.update('containers', containers =>
             containers.update(
@@ -94,7 +94,7 @@ const containersReducer = (state = initialState, action) => {
                     })
                 }
             ))
-            
+
         case START_CONTAINER_FAILURE:
         case BUILD_CONTAINER_FAILURE:
         case STOP_CONTAINER_FAILURE:
@@ -108,7 +108,7 @@ const containersReducer = (state = initialState, action) => {
                     })
                 }
             ))
-            
+
     }
 
     return state
