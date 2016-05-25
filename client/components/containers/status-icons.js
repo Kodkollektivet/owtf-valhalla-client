@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+<<<<<<< HEAD
 const holderStyle = {
   padding:'3px',
   minHeight: '20px',
