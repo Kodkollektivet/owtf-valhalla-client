@@ -7,6 +7,10 @@ import {
     BUILD_CONTAINER_SUCCESS,
     BUILD_CONTAINER_FAILURE,
 
+    REMOVE_CONTAINER_STARTED,
+    REMOVE_CONTAINER_SUCCESS,
+    REMOVE_CONTAINER_FAILURE,
+    
     START_CONTAINER_STARTED,
     START_CONTAINER_SUCCESS,
     START_CONTAINER_FAILURE,
@@ -37,12 +41,21 @@ export function create(coreApi = api()){
     buildContainerRequest(id){
       return dispatch => {
         dispatch(buildContainerStarted(id))
-        return coreApi.buildContainer(id)
+        return coreApi.buildImage(id)
                 .then(containerId => dispatch(buildContainerSuccess(containerId)))
                 .catch(ex => dispatch(buildContainerFailure(id, ex)))
       }
     },
 
+    removeContainerRequest(id){
+      return dispatch => {
+        dispatch(removeContainerStarted(id))
+        return coreApi.removeImage(id)
+                .then(containerId => dispatch(removeContainerSuccess(containerId)))
+                .catch(ex => dispatch(removeContainerFailure(id, ex)))
+      }
+    },
+      
     startContainerRequest(id){
       return dispatch => {
         dispatch(startContainerStarted(id))
@@ -103,6 +116,19 @@ function buildContainerSuccess(id) {
 
 function buildContainerFailure(id, error) {
   return {type: BUILD_CONTAINER_FAILURE, imageId: id, error: error}
+}
+
+//Remove container async private action creators
+function removeContainerStarted(id) {
+  return {type: REMOVE_CONTAINER_STARTED, imageId: id}
+}
+
+function removeContainerSuccess(id) {
+  return {type: REMOVE_CONTAINER_SUCCESS, imageId: id}
+}
+
+function removeContainerFailure(id, error) {
+  return {type: REMOVE_CONTAINER_FAILURE, imageId: id, error: error}
 }
 
 //Start container async private action creators

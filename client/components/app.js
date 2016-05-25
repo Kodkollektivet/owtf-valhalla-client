@@ -10,6 +10,7 @@ class App extends Component {
       this.handleBuildContainer = this.handleBuildContainer.bind(this)
       this.handleStartContainer = this.handleStartContainer.bind(this)
       this.handleStopContainer = this.handleStopContainer.bind(this)
+      this.handleRemoveContainer = this.handleRemoveContainer.bind(this)
     }
 
     componentWillMount() {
@@ -18,6 +19,10 @@ class App extends Component {
 
     handleBuildContainer (id){
       this.props.actions.buildContainerRequest(id)
+    }
+
+    handleRemoveContainer (id){
+      this.props.actions.removeContainerRequest(id)
     }
 
     handleStartContainer (id){
@@ -36,6 +41,7 @@ class App extends Component {
               handleBuildContainer={this.handleBuildContainer}
               handleStartContainer={this.handleStartContainer}
               handleStopContainer={this.handleStopContainer}
+              handleRemoveContainer={this.handleRemoveContainer}
               />
           </div>
         )

@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Admin client application for owtf-valhalla container management",
   "main": "server.js",
-  "dependencies": {
-    "express": "^4.13.4"
-  },
   "devDependencies": {
     "babel-core": "^6.7.6",
     "babel-loader": "^6.2.4",
@@ -49,8 +46,7 @@
     "test:watch": "npm test -- --watch",
     "build": "webpack",
     "prestart": "npm run build",
-    "start": "node server.js",
-    "dev": "webpack-dev-server --hot --inline --progress --colors -d --host 0.0.0.0"
+    "start": "webpack-dev-server --hot --inline --progress --colors -d --host 0.0.0.0"
   },
   "keywords": [
     "owtf",

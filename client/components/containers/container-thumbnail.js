@@ -15,11 +15,12 @@ class ContainerThumbnail extends Component {
             <p>{this.props.container.container.tag}</p> 
             <p>
                 <ContainerActionButtons 
-                  running={this.props.container.running} 
-                  built={this.props.container.built} 
-                  onBuildClick={() => {this.props.handleBuild(imageId)}} 
-                  onStartClick={() => {this.props.handleStart(imageId)}} 
-                  onStopClick={() => {this.props.handleStop(imageId)}} 
+                running={this.props.container.running} 
+                built={this.props.container.built} 
+                onBuildClick={() => {this.props.handleBuild(imageId)}} 
+                onStartClick={() => {this.props.handleStart(imageId)}} 
+                onStopClick={() => {this.props.handleStop(imageId)}}
+                onRemoveClick={() => {this.props.handleRemove(imageId)}} 
                 />
             </p>
           </div>
