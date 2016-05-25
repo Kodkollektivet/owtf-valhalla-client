@@ -8,7 +8,7 @@ export function mapSingle (apiEntity){
         results: apiEntity.results,
         config: apiEntity.config,
         image: {
-            id: apiEntity.image_id,
+            id: apiEntity.image,
             name: apiEntity.image_name,
             version: apiEntity.image_version,
             path: apiEntity.image_path,

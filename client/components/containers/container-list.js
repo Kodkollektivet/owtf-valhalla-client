@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ContainerThumbnail from './container-thumbnail'
 
-export default function ContainerList({containerList, handleBuildContainer, handleStartContainer, handleStopContainer}){
+export default function ContainerList({containerList, handleBuildContainer, handleStartContainer, handleStopContainer, handleRemoveContainer}){
     
     let thumbnails = containerList.containers.map((container) => {
             return <ContainerThumbnail 
@@ -9,7 +9,9 @@ export default function ContainerList({containerList, handleBuildContainer, hand
                 container={container} 
                 handleBuild={handleBuildContainer} 
                 handleStart={handleStartContainer} 
-                handleStop={handleStopContainer}/>
+                handleStop={handleStopContainer}
+                handleRemove={handleRemoveContainer}
+            />
           })
     
     return  <div className="col-sm-12 col-md-12">

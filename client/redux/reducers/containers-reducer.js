@@ -9,6 +9,10 @@ import {
     BUILD_CONTAINER_SUCCESS,
     BUILD_CONTAINER_FAILURE,
 
+    REMOVE_CONTAINER_STARTED,
+    REMOVE_CONTAINER_SUCCESS,
+    REMOVE_CONTAINER_FAILURE,
+    
     START_CONTAINER_STARTED,
     START_CONTAINER_SUCCESS,
     START_CONTAINER_FAILURE,
@@ -47,6 +51,7 @@ const containersReducer = (state = initialState, action) => {
         
         case START_CONTAINER_STARTED:
         case BUILD_CONTAINER_STARTED:
+        case REMOVE_CONTAINER_STARTED:
         case STOP_CONTAINER_STARTED:
           return state.update('containers', containers =>
             containers.update(

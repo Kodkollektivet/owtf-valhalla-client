@@ -13,7 +13,7 @@ export function api (baseUrl = standardBaseUrl){
                   .then(containerMapper.mapMany)
         },
 
-        //containers/<IMAGE>/build_container
+        //containers/<IMAGE>/build_image
         buildImage: (image) => {
             let url = baseUrl+'/containers/'+image+'/build_image';
             return fetch(url)
@@ -27,6 +27,13 @@ export function api (baseUrl = standardBaseUrl){
                     .then(image)
         },
 
+        //containers/<IMAGE>/remove
+        removeImage: (image) => {
+            let url = baseUrl+'/containers/'+image+'/remove_image';
+            return fetch(url)
+                    .then(image)
+        },
+        
         //containers/<IMAGE>/start
         startContainer: (image) => {
             let url = baseUrl+'/containers/'+image+'/start';
