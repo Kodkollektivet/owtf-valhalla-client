@@ -9,7 +9,12 @@ export function api (baseUrl = standardBaseUrl){
         getContainers: () => {
             let url = baseUrl+'/containers';
             return fetch(url)
-                	.then(res => res.json())
+                	.then(res => {
+                      if(!res.ok)
+                        throw new Error("The response answered with "+res.status+": "+res.statusText)
+
+                        return res.json()
+                  })
                   .then(containerMapper.mapMany)
         },
 
@@ -24,6 +29,11 @@ export function api (baseUrl = standardBaseUrl){
         buildContainer: (image) => {
             let url = baseUrl+'/containers/'+image+'/build_container';
             return fetch(url)
+                  	.then(res => {
+                      console.log(res)
+                        if(!res.ok)
+                          throw new Error("The response answered with "+res.status+": "+res.statusText)
+                    })
                     .then(image)
         },
 

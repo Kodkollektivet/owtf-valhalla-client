@@ -1,5 +1,6 @@
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -14,6 +15,7 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
+    new ExtractTextPlugin("./bundle.css"),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template : './client/static/index.html',
@@ -23,14 +25,15 @@ module.exports = {
       "CORE_API_URL"
     ])
   ],
-  
+
   module: {
     loaders: [
       {
         test: /\.js$/,
         loaders: ['react-hot', 'babel'],
         exclude: /node_modules/
-      }
+      },
+     { test: /\.css$/, loader: "style-loader!css-loader" }
     ]
   }
 }
