@@ -19,6 +19,10 @@ import {
     STOP_CONTAINER_STARTED,
     STOP_CONTAINER_SUCCESS,
     STOP_CONTAINER_FAILURE,
+    
+    REMOVE_CONTAINER_STARTED,
+    REMOVE_CONTAINER_SUCCESS,
+    REMOVE_CONTAINER_FAILURE,
 
 } from '../../../client/redux/actions/action-types'
 
@@ -98,12 +102,12 @@ describe('redux containers reducer tests', () =>{
                 containers: [
                     {
                         container:{id:"c1", built: false}, 
-                        image:{id:"i1", isBuilt: true}, 
+                        image:{id:"i1", built: true}, 
                         thinking:false
                     },
                     {
                         container:{id:"c2", built: false}, 
-                        image:{id:"i2", isBuilt: true}, 
+                        image:{id:"i2", built: true}, 
                         thinking:false
                     }]
             })
@@ -125,13 +129,13 @@ describe('redux containers reducer tests', () =>{
                 containers: [
                     {
                         container:{id:"c1", built: false}, 
-                        image:{id:"i1", isBuilt: true}, 
+                        image:{id:"i1", built: true}, 
                         thinking:false,
                         hasError:false
                     },
                     {
                         container:{id:"c2", built: false}, 
-                        image:{id:"i2", isBuilt: true},  
+                        image:{id:"i2", built: true},  
                         thinking:true,
                         hasError:false
                     }]
@@ -155,13 +159,13 @@ describe('redux containers reducer tests', () =>{
                 containers: [
                     {
                         container:{id:"c1", built: false}, 
-                        image:{id:"i1", isBuilt: true}, 
+                        image:{id:"i1", built: true}, 
                         thinking:true,
                         hasError:false
                     },
                     {
                         container:{id:"c2", built: false}, 
-                        image:{id:"i2", isBuilt: true},  
+                        image:{id:"i2", built: true},  
                         thinking:false,
                         hasError:false
                     }]
@@ -185,12 +189,12 @@ describe('redux containers reducer tests', () =>{
                 containers: [
                     {
                         container:{id:"c1", built: true}, 
-                        image:{id:"i1", isBuilt: true}, 
+                        image:{id:"i1", built: true}, 
                         thinking:false
                     },
                     {
                         container:{id:"c2", built: true}, 
-                        image:{id:"i2", isBuilt: true}, 
+                        image:{id:"i2", built: true}, 
                         thinking:false
                     }]
             })
@@ -211,13 +215,13 @@ describe('redux containers reducer tests', () =>{
                 containers: [
                     {
                         container:{id:"c1", built: true}, 
-                        image:{id:"i1", isBuilt: true}, 
+                        image:{id:"i1", built: true}, 
                         thinking:false,
                         running: false
                     },
                     {
                         container:{id:"c2", built: true}, 
-                        image:{id:"i2", isBuilt: true}, 
+                        image:{id:"i2", built: true}, 
                         thinking:true,
                         running: false
                     }]
@@ -240,14 +244,14 @@ describe('redux containers reducer tests', () =>{
                 containers: [
                     {
                         container:{id:"c1", built: true}, 
-                        image:{id:"i1", isBuilt: true}, 
+                        image:{id:"i1", built: true}, 
                         thinking:true,
                         hasError:false,
                         running: false
                     },
                     {
                         container:{id:"c2", built: true}, 
-                        image:{id:"i2", isBuilt: true},  
+                        image:{id:"i2", built: true},  
                         thinking:false,
                         hasError:false,
                         running: false
@@ -271,13 +275,13 @@ describe('redux containers reducer tests', () =>{
                 containers: [
                     {
                         container:{id:"c1", built: true}, 
-                        image:{id:"i1", isBuilt: true}, 
+                        image:{id:"i1", built: true}, 
                         thinking:false,
                         running: true
                     },
                     {
                         container:{id:"c2", built: true}, 
-                        image:{id:"i2", isBuilt: true}, 
+                        image:{id:"i2", built: true}, 
                         thinking:false,
                         running: true
                     }]
@@ -299,13 +303,13 @@ describe('redux containers reducer tests', () =>{
                 containers: [
                     {
                         container:{id:"c1", built: true}, 
-                        image:{id:"i1", isBuilt: true}, 
+                        image:{id:"i1", built: true}, 
                         thinking:false,
                         running: true
                     },
                     {
                         container:{id:"c2", built: true}, 
-                        image:{id:"i2", isBuilt: true}, 
+                        image:{id:"i2", built: true}, 
                         thinking:true,
                         running: true
                     }]
@@ -328,14 +332,14 @@ describe('redux containers reducer tests', () =>{
                 containers: [
                     {
                         container:{id:"c1", built: true}, 
-                        image:{id:"i1", isBuilt: true}, 
+                        image:{id:"i1", built: true}, 
                         thinking:true,
                         hasError:false,
                         running: true
                     },
                     {
                         container:{id:"c2", built: true}, 
-                        image:{id:"i2", isBuilt: true},  
+                        image:{id:"i2", built: true},  
                         thinking:false,
                         hasError:false,
                         running: true
@@ -344,6 +348,96 @@ describe('redux containers reducer tests', () =>{
             
             it('should return a state where the target container has hasError field set to true and thinking set to false', () => {
                 let action = {type: STOP_CONTAINER_FAILURE, imageId: "i1", error: new Error("Build container failure")}
+                let nextState = containersReducer(initialState, action)
+                let result = nextState.toJS();
+                assert.equal(result.containers[0].thinking, false, 'The thinking field should be false in the returned state object')
+                assert.equal(result.containers[0].hasError, true, 'The hasError field should be true in the returned state object')
+            })
+        })
+        
+        describe('action REMOVE_CONTAINER_STARTED', () =>{
+            const initialState = fromJS({
+                fetching: true,
+                ready: true,
+                fail: false,
+                containers: [
+                    {
+                        container:{id:"c1", built: true}, 
+                        image:{id:"i1", built: true}, 
+                        thinking:false,
+                        running: true
+                    },
+                    {
+                        container:{id:"c2", built: true}, 
+                        image:{id:"i2", built: true}, 
+                        thinking:false,
+                        running: true
+                    }]
+            })
+            
+            it('should return a state where target container has thinking set to true', () => {
+                let action = {type: REMOVE_CONTAINER_STARTED, imageId: "i2"}
+                let nextState = containersReducer(initialState, action)
+                let result = nextState.toJS()
+                assert.equal(result.containers[1].thinking, true, 'The thinking field should be true for the targeted container in the returned state object')
+            })
+        })
+        
+        describe('action REMOVE_CONTAINER_SUCCESS', () =>{
+            const initialState = fromJS({
+                fetching: true,
+                ready: true,
+                fail: false,
+                containers: [
+                    {
+                        container:{id:"c1", built: true}, 
+                        image:{id:"i1", built: true}, 
+                        thinking:false,
+                        running: true
+                    },
+                    {
+                        container:{id:"c2", built: true}, 
+                        image:{id:"i2", built: true}, 
+                        thinking:true,
+                        running: true
+                    }]
+            })
+            
+            it('should return a state where target container has image.built, container.built, running and thinking set to false', () => {
+                let action = {type: REMOVE_CONTAINER_SUCCESS, imageId: "i2"}
+                let nextState = containersReducer(initialState, action)
+                let result = nextState.toJS()
+                assert.equal(result.containers[1].container.built, false, 'The container.built field should be false for the targeted container in the returned state object')
+                assert.equal(result.containers[1].image.built, false, 'The image.built field should be false for the targeted container in the returned state object')
+                assert.equal(result.containers[1].running, false, 'The running field should be false for the targeted container in the returned state object')
+                assert.equal(result.containers[1].thinking, false, 'The thinking field should be false for the targeted container in the returned state object')
+            })
+        })
+        
+        describe('action REMOVE_CONTAINER_FAILURE', () =>{
+            const initialState = fromJS({
+                fetching: true,
+                ready: true,
+                fail: false,
+                containers: [
+                    {
+                        container:{id:"c1", built: true}, 
+                        image:{id:"i1", built: true}, 
+                        thinking:true,
+                        hasError:false,
+                        running: true
+                    },
+                    {
+                        container:{id:"c2", built: true}, 
+                        image:{id:"i2", built: true},  
+                        thinking:false,
+                        hasError:false,
+                        running: true
+                    }]
+            })
+            
+            it('should return a state where the target container has hasError field set to true and thinking set to false', () => {
+                let action = {type: REMOVE_CONTAINER_FAILURE, imageId: "i1", error: new Error("Remove container failure")}
                 let nextState = containersReducer(initialState, action)
                 let result = nextState.toJS();
                 assert.equal(result.containers[0].thinking, false, 'The thinking field should be false in the returned state object')

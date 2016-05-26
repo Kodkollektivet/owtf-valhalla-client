@@ -17,7 +17,7 @@ describe('api-container-mapper.js', function() {
             assert.equal(mappedContainerObject.image.name, singleApiContainer.image_name, "image_name should be mapped to image.name")
             assert.equal(mappedContainerObject.image.path, singleApiContainer.image_path, "image_path should be mapped to image.path")
             assert.equal(mappedContainerObject.image.version, singleApiContainer.image_version, "image_version should be mapped to image.version")
-            assert.equal(mappedContainerObject.image.isBuilt, singleApiContainer.is_image_build, "is_image_build should be mapped to image.isBuilt")
+            assert.equal(mappedContainerObject.image.built, singleApiContainer.is_image_build, "is_image_build should be mapped to image.isBuilt")
 
             assert.equal(mappedContainerObject.container.id, singleApiContainer.container_id, "container_id should be mapped to container.id")
             assert.equal(mappedContainerObject.container.name, singleApiContainer.container_name, "container_name should be mapped to container.name")

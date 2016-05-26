@@ -12,7 +12,7 @@ export function mapSingle (apiEntity){
             name: apiEntity.image_name,
             version: apiEntity.image_version,
             path: apiEntity.image_path,
-            isBuilt: apiEntity.is_image_build,
+            built: apiEntity.is_image_build,
         },
         container: {
             id: apiEntity.container_id,
