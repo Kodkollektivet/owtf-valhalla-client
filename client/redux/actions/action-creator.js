@@ -51,7 +51,7 @@ export function create(coreApi = api()){
       return dispatch => {
         dispatch(removeContainerStarted(id))
         return coreApi.removeImage(id)
-                .then(containerId => dispatch(removeContainerSuccess(containerId)))
+                .then(containerId => dispatch(removeContainerSuccess(id)))
                 .catch(ex => dispatch(removeContainerFailure(id, ex)))
       }
     },
