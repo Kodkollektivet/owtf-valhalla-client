@@ -23,6 +23,10 @@ describe('redux async action creators tests', () => {
         nock(fakeApiUrl)
             .get('/containers/i1/start')
             .reply(200, 'Okey')
+            
+        nock(fakeApiUrl)
+            .get('/containers/i1/remove_image')
+            .reply(200, 'Okey')
     });
         
     describe('dispatching "fetch container" async action', () => {
@@ -55,6 +59,28 @@ describe('redux async action creators tests', () => {
                     let actions = store.getActions()
                     assert.equal(actions[0].type, 'START_CONTAINER_STARTED', 'First action should be START_CONTAINERS_STARTED')
                     assert.equal(actions[1].type, 'START_CONTAINER_SUCCESS', 'Second action should be START_CONTAINERS_SUCCESS')
+                    assert.equal(actions[1].imageId, 'i1', 'Second actions data should be the image id')
+                  })
+                  .then(done) // test passed
+                  .catch(done) // test failed
+              })
+        });
+        
+    describe('dispatching "remove image" async action', () => {
+        it('should update state twice, once for "started" and once for "success" with the image id', (done) =>{
+            let initialState = Map({
+                fetching: false,
+                ready: true,
+                fail: false,
+                containers: List(fakeData.mappedContainerObjects)
+            })
+            
+            let store = mockStore(initialState)
+            store.dispatch(actions.removeContainerRequest('i1'))
+                  .then(() => { // return of async actions
+                    let actions = store.getActions()
+                    assert.equal(actions[0].type, 'REMOVE_CONTAINER_STARTED', 'First action should be REMOVE_CONTAINERS_STARTED')
+                    assert.equal(actions[1].type, 'REMOVE_CONTAINER_SUCCESS', 'Second action should be REMOVE_CONTAINERS_SUCCESS')
                     assert.equal(actions[1].imageId, 'i1', 'Second actions data should be the image id')
                   })
                   .then(done) // test passed
