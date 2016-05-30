@@ -9,9 +9,10 @@
 
 ```bash
 docker build -t owtf-client:0.1 .
-docker run -it --rm -p 8080:8080 -v $PWD:/code owtf-client:0.1 bash
-
-When inside of container:
+docker run -it -v $PWD:/code --net host owtf-client:0.1 bash
+cd /code
+npm install
+export CORE_API_URL=http://<CORE_IP_ADDRESS>:8000
 npm start
 ```
 
