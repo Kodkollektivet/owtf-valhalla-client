@@ -18,16 +18,11 @@ export function api (baseUrl = standardBaseUrl){
                   .then(containerMapper.mapMany)
         },
 
-        //containers/<IMAGE>/build_image
-        buildImage: (image) => {
-            let url = baseUrl+'/containers/'+image+'/build_image';
-            return fetch(url)
-                    .then(image)
-        },
-
-        //containers/<IMAGE>/build_container
+        //containers/<IMAGE>/build
         buildContainer: (image) => {
-            let url = baseUrl+'/containers/'+image+'/build_container';
+            let url = baseUrl+image;
+            console.log("buildContainer in core-api-service");
+            console.log(url);
             return fetch(url)
                   	.then(res => {
                       console.log(res)
@@ -39,21 +34,23 @@ export function api (baseUrl = standardBaseUrl){
 
         //containers/<IMAGE>/remove
         removeImage: (image) => {
-            let url = baseUrl+'/containers/'+image+'/remove_image';
+            let url = baseUrl+image;
             return fetch(url)
                     .then(image)
         },
         
         //containers/<IMAGE>/start
         startContainer: (image) => {
-            let url = baseUrl+'/containers/'+image+'/start';
+            let url = baseUrl+image;
+            console.log("startContainer in core-api-service");
+            console.log(url);
             return fetch(url)
                     .then(image)
         },
 
         //containers/<IMAGE>/stop
         stopContainer: (image) => {
-            let url = baseUrl+'/containers/'+image+'/stop';
+            let url = baseUrl+image;
             return fetch(url)
                     .then(image)
         }

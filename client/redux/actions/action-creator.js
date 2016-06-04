@@ -39,36 +39,48 @@ export function create(coreApi = api()){
     },
 
     buildContainerRequest(id){
+      console.log("buildContainerRequest in action-creator");
+      console.log(id);
       return dispatch => {
         dispatch(buildContainerStarted(id))
-        return coreApi.buildContainer(id)
+        console.log("sending to buildContainer()");
+        console.log(id.container.endpoints.build);
+        return coreApi.buildContainer(id.container.endpoints.build)
                 .then(containerId => dispatch(buildContainerSuccess(id)))
                 .catch(ex => dispatch(buildContainerFailure(id, ex)))
       }
     },
 
     removeContainerRequest(id){
+      console.log("removeContainerRequest in action-creator");
+      console.log(id);
       return dispatch => {
         dispatch(removeContainerStarted(id))
-        return coreApi.removeImage(id)
+        return coreApi.removeImage(id.container.endpoints.remove)
                 .then(containerId => dispatch(removeContainerSuccess(id)))
                 .catch(ex => dispatch(removeContainerFailure(id, ex)))
       }
     },
 
     startContainerRequest(id){
+      console.log("startContainerRequest in action-creator");
+      console.log(id);
+
       return dispatch => {
         dispatch(startContainerStarted(id))
-        return coreApi.startContainer(id)
+        return coreApi.startContainer(id.container.endpoints.start)
                 .then(containerId => dispatch(startContainerSuccess(id)))
                 .catch(ex => dispatch(startContainerFailure(id, ex)))
       }
     },
 
     stopContainerRequest(id){
+      console.log("stopContainerRequest in action-creator");
+      console.log(id);
+
       return dispatch => {
         dispatch(stopContainerStarted(id))
-        return coreApi.stopContainer(id)
+        return coreApi.stopContainer(id.container.endpoints.stop)
                 .then(containerId => dispatch(stopContainerSuccess(id)))
                 .catch(ex => dispatch(stopContainerFailure(id, ex)))
       }
@@ -143,7 +155,6 @@ function startContainerSuccess(id) {
 function startContainerFailure(error) {
   return {type: START_CONTAINER_FAILURE, error: error}
 }
-
 
 //Start container async private action creators
 function stopContainerStarted() {

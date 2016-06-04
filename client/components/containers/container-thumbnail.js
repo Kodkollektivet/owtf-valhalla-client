@@ -16,16 +16,16 @@ const actionButtonsHolderStyle = {
 
 class ContainerThumbnail extends Component {
     render() {
-        let imageId = this.props.container.image.id;
-        return (<div className="col-sm-4 col-md-4">
+        let image = this.props;
+        return (<div className="col-sm-12 col-md-12">
         <div style={thumbnailStyle} className="thumbnail">
         <div style={actionButtonsHolderStyle}>
             <ContainerActionButtons
               running={this.props.container.running}
               built={this.props.container.container.built}
-              onBuildClick={() => {this.props.handleBuild(imageId)}}
-              onStartClick={() => {this.props.handleStart(imageId)}}
-              onStopClick={() => {this.props.handleStop(imageId)}}
+              onBuildClick={() => {this.props.handleBuild(image)}}
+              onStartClick={() => {this.props.handleStart(image)}}
+              onStopClick={() => {this.props.handleStop(image)}}
             />
               <StatusIcons
                 thinking={this.props.container.thinking}
@@ -42,10 +42,10 @@ class ContainerThumbnail extends Component {
                 <ContainerActionButtons
                 running={this.props.container.running}
                 built={this.props.container.built}
-                onBuildClick={() => {this.props.handleBuild(imageId)}}
-                onStartClick={() => {this.props.handleStart(imageId)}}
-                onStopClick={() => {this.props.handleStop(imageId)}}
-                onRemoveClick={() => {this.props.handleRemove(imageId)}}
+                onBuildClick={() => {this.props.handleBuild(image)}}
+                onStartClick={() => {this.props.handleStart(image)}}
+                onStopClick={() => {this.props.handleStop(image)}}
+                onRemoveClick={() => {this.props.handleRemove(image)}}
                 />
             </p>
             <p style={imageInfoStyle}>Image: {this.props.container.image.name} - v. {this.props.container.image.version}</p>
