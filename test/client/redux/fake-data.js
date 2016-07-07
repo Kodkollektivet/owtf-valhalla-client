@@ -1,3 +1,22 @@
+module.exports.apiCommandsJson = [
+  {
+        "code": "666",
+        "target": "",
+        "image": "owtfvalhallatestcontainer:0.1",
+        "noise": "passive",
+        "command": "sleep 5s",
+        "description": "Test"
+      },
+  {
+    "code": "667",
+      "target": "",
+      "image": "owtfvalhallatestcontainer:0.1",
+      "noise": "passive",
+      "command": "sleep 5s",
+      "description": "Test"
+    }
+]
+
 module.exports.apiContainersJson = [
     {
         'image' : 'test-image-01',
@@ -5,16 +24,16 @@ module.exports.apiContainersJson = [
         'image_name' : 'test-image-01',
         'image_version' : '1.2.1',
         'image_path' : '',
-    
+
         'container_id' : 'c1',
         'container_name' : 'test-container-01',
         'container_tag' : 'test',
-    
+
        'config'  : '{}',
         'ip_address' : '123.33.44.100',
-    
+
         'results' : '[]',
-    
+
         'is_image_build' : 'false',
         'is_container_build' : 'false',
         'is_valid' : 'true',
@@ -26,16 +45,16 @@ module.exports.apiContainersJson = [
         'image_name' : 'test-image-02',
         'image_version' : '1.1.3',
         'image_path' : '',
-    
+
         'container_id' : 'c2',
         'container_name' : 'test-container-02',
         'container_tag' : 'test',
-    
+
        'config'  : '{}',
         'ip_address' : '123.33.44.200',
-    
+
         'results' : '[]',
-    
+
         'is_image_build' : 'false',
         'is_container_build' : 'false',
         'is_valid' : 'true',

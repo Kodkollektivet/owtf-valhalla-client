@@ -3,6 +3,10 @@ import {
     FETCH_CONTAINERS_SUCCESS,
     FETCH_CONTAINERS_FAILURE,
 
+    FETCH_COMMANDS_STARTED,
+    FETCH_COMMANDS_SUCCESS,
+    FETCH_COMMANDS_FAILURE,
+
     BUILD_CONTAINER_STARTED,
     BUILD_CONTAINER_SUCCESS,
     BUILD_CONTAINER_FAILURE,
@@ -29,6 +33,15 @@ import {api} from '../../services/core-api-service'
 
 export function create(coreApi = api()){
   return {
+    fetchCommandsRequest(){
+      return dispatch => {
+        dispatch(fetchCommandsStarted())
+        return coreApi.getCommands()
+          .then(commands => dispatch(fetchCommandsSuccess(commands)))
+          .catch(ex => dispatch(fetchCommandsFailure(ex)))
+      }
+    },
+
     fetchContainersRequest(){
       return dispatch => {
         dispatch(fetchContainersStarted())
@@ -90,6 +103,19 @@ export function create(coreApi = api()){
       return {type: LOG_CRITICAL, message: message, inner: inner}
     }
   }
+}
+
+//Fetch containers async private action creators
+function fetchCommandsStarted() {
+  return {type: FETCH_COMMANDS_STARTED}
+}
+
+function fetchCommandsSuccess(commands) {
+  return {type: FETCH_COMMANDS_SUCCESS, commands: commands}
+}
+
+function fetchCommandsFailure(error) {
+  return {type: FETCH_COMMANDS_FAILURE, error: error}
 }
 
 //Fetch containers async private action creators

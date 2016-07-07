@@ -1,21 +1,34 @@
 import fetch from 'isomorphic-fetch'
 import * as containerMapper from '../common/mappers/api-container-mapper'
+import ApiBadResponseError from '../common/errors/api-bad-response-error'
 const standardBaseUrl = process.env.CORE_API_URL;
 
 export function api (baseUrl = standardBaseUrl){
     return {
-
+        
         //containers/
         getContainers: () => {
             let url = baseUrl+'/containers';
             return fetch(url)
                 	.then(res => {
                       if(!res.ok)
-                        throw new Error("The response answered with "+res.status+": "+res.statusText)
+                        throw new ApiBadResponseError(url, res.status, res.statusText)
 
                         return res.json()
                   })
                   .then(containerMapper.mapMany)
+        },
+        
+        //containers/commands/
+        getCommands: () => {
+            let url = baseUrl+'/containers/commands'
+            return fetch(url)
+                    .then(res => {
+                      if(!res.ok)
+                        throw new ApiBadResponseError(url, res.status, res.statusText)
+                        
+                        return res.json()
+                    })
         },
 
         //containers/<IMAGE>/build_image
@@ -32,7 +45,7 @@ export function api (baseUrl = standardBaseUrl){
                   	.then(res => {
                       console.log(res)
                         if(!res.ok)
-                          throw new Error("The response answered with "+res.status+": "+res.statusText)
+                        throw new ApiBadResponseError(url, res.status, res.statusText)
                     })
                     .then(image)
         },

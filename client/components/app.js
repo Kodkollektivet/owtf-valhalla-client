@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actionCreator from '../redux/actions/action-creator'
 import ContainerList from './containers/container-list'
+import OwaspCodeList from './commands/owasp-code-list'
 
 class App extends Component {
     constructor(props) {
@@ -14,6 +15,7 @@ class App extends Component {
     }
 
     componentWillMount() {
+        this.props.actions.fetchCommandsRequest()
         this.props.actions.fetchContainersRequest()
     }
 
@@ -35,14 +37,21 @@ class App extends Component {
 
     render() {
         return (
-          <div>
-            <ContainerList
-              containerList={this.props.containerList}
-              handleBuildContainer={this.handleBuildContainer}
-              handleStartContainer={this.handleStartContainer}
-              handleStopContainer={this.handleStopContainer}
-              handleRemoveContainer={this.handleRemoveContainer}
-              />
+          <div className="full-height row">
+            <div className="full-height col-sm-2 well well-sm">
+              <nav className="navbar navbar-default">
+                <OwaspCodeList commandList={this.props.commandList} />
+              </nav>
+            </div>
+            <div className="col-sm-10">
+              <ContainerList
+                containerList={this.props.containerList}
+                handleBuildContainer={this.handleBuildContainer}
+                handleStartContainer={this.handleStartContainer}
+                handleStopContainer={this.handleStopContainer}
+                handleRemoveContainer={this.handleRemoveContainer}
+                />
+            </div>
           </div>
         )
     }
