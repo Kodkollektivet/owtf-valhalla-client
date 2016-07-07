@@ -13,7 +13,6 @@ export default function ContainerList({containerList, handleBuildContainer, hand
                 handleRemove={handleRemoveContainer}
             />
     })
-    
     return  <div className="col-sm-12 col-md-12">
         {thumbnails}
     </div>

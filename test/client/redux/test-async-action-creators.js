@@ -19,16 +19,20 @@ describe('redux async action creators tests', () => {
         nock(fakeApiUrl)
             .get('/containers')
             .reply(200, fakeData.apiContainersJson)
-            
+
+        nock(fakeApiUrl)
+            .get('/containers/commands')
+            .reply(200, fakeData.apiCommandsJson)
+
         nock(fakeApiUrl)
             .get('/containers/i1/start')
             .reply(200, 'Okey')
-            
+
         nock(fakeApiUrl)
             .get('/containers/i1/remove_image')
             .reply(200, 'Okey')
     });
-        
+
     describe('dispatching "fetch container" async action', () => {
         it('should update state twice, once for "started" and once for "success" with an array of containers', (done) => {
             let store = mockStore({})
@@ -43,7 +47,22 @@ describe('redux async action creators tests', () => {
                   .catch(done) // test failed
               })
         });
-        
+
+        describe('dispatching "fetch commands" async action', () => {
+            it('should update state twice, once for "started" and once for "success" with an array of commands', (done) => {
+                let store = mockStore({})
+                store.dispatch(actions.fetchCommandsRequest())
+                      .then(() => { // return of async actions
+                        let actions = store.getActions()
+                        assert.equal(actions[0].type, 'FETCH_COMMANDS_STARTED', 'First action should be FETCH_COMMANDS_STARTED')
+                        assert.equal(actions[1].type, 'FETCH_COMMANDS_SUCCESS', 'Second action should be FETCH_COMMANDS_SUCCESS')
+                        assert.isArray(actions[1].commands, 'Second actions data should be an array')
+                      })
+                      .then(done) // test passed
+                      .catch(done) // test failed
+                  })
+            });
+
     describe('dispatching "start container" async action', () => {
         it('should update state twice, once for "started" and once for "success" with the image id', (done) =>{
             let initialState = Map({
@@ -52,7 +71,7 @@ describe('redux async action creators tests', () => {
                 fail: false,
                 containers: List(fakeData.mappedContainerObjects)
             })
-            
+
             let store = mockStore(initialState)
             store.dispatch(actions.startContainerRequest('i1'))
                   .then(() => { // return of async actions
@@ -65,7 +84,7 @@ describe('redux async action creators tests', () => {
                   .catch(done) // test failed
               })
         });
-        
+
     describe('dispatching "remove image" async action', () => {
         it('should update state twice, once for "started" and once for "success" with the image id', (done) =>{
             let initialState = Map({
@@ -74,7 +93,7 @@ describe('redux async action creators tests', () => {
                 fail: false,
                 containers: List(fakeData.mappedContainerObjects)
             })
-            
+
             let store = mockStore(initialState)
             store.dispatch(actions.removeContainerRequest('i1'))
                   .then(() => { // return of async actions

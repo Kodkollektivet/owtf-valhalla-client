@@ -17,3 +17,7 @@ npm start
 ```
 
 Visit container IP on port 8080.
+
+## For developers
+Checkout [DEVNOTES.md](DEVNOTES.md)
+

@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import ContainerActionButtons from './container-action-buttons'
 import StatusIcons from './status-icons'
@@ -26,6 +27,7 @@ class ContainerThumbnail extends Component {
               onBuildClick={() => {this.props.handleBuild(imageId)}}
               onStartClick={() => {this.props.handleStart(imageId)}}
               onStopClick={() => {this.props.handleStop(imageId)}}
+              onRemoveClick={() => {this.props.handleRemove(imageId)}}
             />
               <StatusIcons
                 thinking={this.props.container.thinking}
@@ -38,20 +40,10 @@ class ContainerThumbnail extends Component {
             <h3>{this.props.container.container.name}</h3>
             <p>{this.props.container.container.ip}</p>
             <p>{this.props.container.container.tag}</p>
-            <p>
-                <ContainerActionButtons
-                running={this.props.container.running}
-                built={this.props.container.built}
-                onBuildClick={() => {this.props.handleBuild(imageId)}}
-                onStartClick={() => {this.props.handleStart(imageId)}}
-                onStopClick={() => {this.props.handleStop(imageId)}}
-                onRemoveClick={() => {this.props.handleRemove(imageId)}}
-                />
-            </p>
             <p style={imageInfoStyle}>Image: {this.props.container.image.name} - v. {this.props.container.image.version}</p>
           </div>
         </div>
-        </div>
+      </div>
         )
     }
 }

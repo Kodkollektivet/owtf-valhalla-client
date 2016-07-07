@@ -12,7 +12,7 @@ import {
     REMOVE_CONTAINER_STARTED,
     REMOVE_CONTAINER_SUCCESS,
     REMOVE_CONTAINER_FAILURE,
-    
+
     START_CONTAINER_STARTED,
     START_CONTAINER_SUCCESS,
     START_CONTAINER_FAILURE,
@@ -82,7 +82,6 @@ const containersReducer = (state = initialState, action) => {
                     })
                 }
             ))
-
         case REMOVE_CONTAINER_SUCCESS:
           return state.update('containers', containers =>
             containers.update(
